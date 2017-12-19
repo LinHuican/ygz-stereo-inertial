@@ -1,10 +1,60 @@
 %YAML:1.0
 
 # Dataset dirs
-LeftFolder: /home/gaoxiang/dataset/euroc/V1_01_easy/cam0/data
-RightFolder: /home/gaoxiang/dataset/euroc/V1_01_easy/cam1/data
-IMUFolder:  /home/gaoxiang/dataset/euroc/V1_01_easy/imu0/data.csv
-TimeFolder: /home/gaoxiang/code/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V101.txt
+LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/V1_01_easy/mav0/cam0/data/
+RightFolder: /home/huicanlin/Downloads/Dataset/ETH/V1_01_easy/mav0/cam1/data/
+IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/V1_01_easy/mav0/imu0/data.csv
+TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V101.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/V1_02_medium/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/V1_02_medium/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/V1_02_medium/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V102.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/V1_03_difficult/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/V1_03_difficult/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/V1_03_difficult/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V103.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/V2_01_easy/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/V2_01_easy/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/V2_01_easy/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V201.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/V2_02_medium/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/V2_02_medium/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/V2_02_medium/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V202.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/V2_03_difficult/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/V2_03_difficult/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/V2_03_difficult/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/V203.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_01_easy/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_01_easy/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/MH_01_easy/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/MH01.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_02_easy/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_02_easy/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/MH_02_easy/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/MH02.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_03_medium/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_03_medium/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/MH_03_medium/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/MH03.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_04_difficult/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_04_difficult/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/MH_04_difficult/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/MH04.txt
+
+#LeftFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_05_difficult/mav0/cam0/data/
+#RightFolder: /home/huicanlin/Downloads/Dataset/ETH/MH_05_difficult/mav0/cam1/data/
+#IMUFolder:  /home/huicanlin/Downloads/Dataset/ETH/MH_05_difficult/mav0/imu0/data.csv
+#TimeFolder: /home/huicanlin/src/ygz-stereo-inertial/examples/EuRoC_TimeStamps/MH05.txt
 
 # if running in pure stereo vision mode
 PureVisionMode: false
