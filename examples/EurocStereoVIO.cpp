@@ -8,8 +8,14 @@
 #include "ygz/System.h"
 #include "ygz/EurocReader.h"
 
+#include <cv_bridge/cv_bridge.h> // added by huicanlin
+
 using namespace std;
 using namespace ygz;
+
+void SaveTrajectoryTUM(vector<SE3d> campose, vector<double> vTimeStamp);//added by huicanlin
+Eigen::Matrix<double,3,3> ConvertertoMatrix3d(const cv::Mat &cvMat3); // added by huicanlin
+std::vector<float> ConvertertoQuaternion(const cv::Mat &M); // added by huicanlin
 
 int main(int argc, char **argv) {
 
@@ -18,7 +24,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    FLAGS_logtostderr = true;
+    FLAGS_logtostderr = true;//干吗的？
     google::InitGoogleLogging(argv[0]);
 
     string configFile(argv[1]);
@@ -94,12 +100,14 @@ int main(int argc, char **argv) {
         setting::TBC = SE3d(Rbc_, tbc_);
     }
 
+    vector<Eigen::Matrix4d> campose;
+    vector<double> camtime;
     size_t imuIndex = 0;
     for (size_t i = 0; i < vstrImageLeft.size(); i++) {
         cv::Mat imLeft, imRight, imLeftRect, imRightRect;
 
         // Read left and right images from file
-        imLeft = cv::imread(vstrImageLeft[i], CV_LOAD_IMAGE_UNCHANGED);
+        imLeft = cv::imread(vstrImageLeft[i], CV_LOAD_IMAGE_UNCHANGED);// vstrImageLeft： 图片的文件名
         imRight = cv::imread(vstrImageRight[i], CV_LOAD_IMAGE_UNCHANGED);
 
         if (imLeft.empty() || imRight.empty()) {
@@ -123,8 +131,77 @@ int main(int argc, char **argv) {
             imuIndex++;
         }
 
-        system.AddStereoIMU(imLeftRect, imRightRect, tframe, vimu);
+        Matrix4d Twb = system.AddStereoIMU(imLeftRect, imRightRect, tframe, vimu).matrix();
+        campose.push_back(Twb);
+        camtime.push_back(vTimeStamp[i]);//跟踪失败的情形怎么办？
     }
 
+    cout << endl << "saving trajectory ... " << endl;
+    ofstream f;
+    f.open("VIOtrajectoryTUM");
+    f << fixed;
+    Matrix3d Rwb;
+    Vector3d twb;
+    //for(uint k = 0; k < vTimeStamp.size(); k++)
+    for(uint k = 0; k < camtime.size(); k++)
+    {
+        twb = Vector3d(campose[k](0,3), campose[k](1,3), campose[k](2,3));
+        for(int i=0;i<3;i++)
+            for(int j=0;j<3;j++)
+                Rwb(i,j) = campose[k](i,j);
+        Eigen::Quaterniond q(Rwb);
+        f << setprecision(0) << (camtime[k])*1e9 << " " <<  setprecision(6) << twb[0] << " " << twb[1] << " " << twb[2] << " " << q.x() << " " << q.y() << " " << q.z() << " " << q.w() << endl;//修改
+    }
+
+    f.close();
+    cout << endl << "trajectory saved!" << endl;
+
     return 0;
+}
+
+void SaveTrajectoryTUM(vector<SE3d> campose, vector<double> vTimeStamp)
+{
+    /*
+    //SaveTrajectoryTUM();
+    ofstream f;
+    //f.open(filename.c_str());
+    f.open("SaveTrajectoryTUM");
+    f << fixed;
+    for(uint i=0; i<vTimeStamp.size(); i++)
+    {
+        campose[i][0];
+        cv::Mat Rwc(3,3,CV_32F);
+        cv::Mat twc(3,1,CV_32F);
+        //Rwc = campose[i].rowRange(0,3).colRange(0,3).t();
+        //twc = -Rwc * campose[i].rowRange(0,3).col(3);
+        vector<float> q = ConvertertoQuaternion(Rwc);
+        //std::setp
+        //f << setprecision(0) << (vTimeStamp[i])*1e9 << " " <<  setprecision(6) << twc.at<float>(0) << " " << twc.at<float>(1) << " " << twc.at<float>(2) << " " << q[0] << " " << q[1] << " " << q[2] << " " << q[3] << endl;//修改
+    }
+    */
+}
+
+Eigen::Matrix<double,3,3> ConvertertoMatrix3d(const cv::Mat &cvMat3)
+{
+    Eigen::Matrix<double,3,3> M;
+
+    M << cvMat3.at<float>(0,0), cvMat3.at<float>(0,1), cvMat3.at<float>(0,2),
+         cvMat3.at<float>(1,0), cvMat3.at<float>(1,1), cvMat3.at<float>(1,2),
+         cvMat3.at<float>(2,0), cvMat3.at<float>(2,1), cvMat3.at<float>(2,2);
+
+    return M;
+}
+
+std::vector<float> ConvertertoQuaternion(const cv::Mat &M)
+{
+    Eigen::Matrix<double,3,3> eigMat = ConvertertoMatrix3d(M);
+    Eigen::Quaterniond q(eigMat);
+
+    std::vector<float> v(4);
+    v[0] = q.x();
+    v[1] = q.y();
+    v[2] = q.z();
+    v[3] = q.w();
+
+    return v;
 }
